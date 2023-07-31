@@ -4,10 +4,12 @@ import { getUser } from "@/services/modules.js";
 import UserComponent from "@/components/modules/UserComponent.js";
 import RandomModal from "@/modals/RandomModal.js";
 import Link from "next/link";
+import { getCountry } from "@/services/modules.js";
 export default function Types({ params }) {
     const my_modal = "hello-modal";
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [countries, setCountries] = useState([])
     async function getUserApi(){
         setLoading(true)
         let response = await getUser();
@@ -23,12 +25,13 @@ export default function Types({ params }) {
     useEffect(() => {
         getUserApi()
     }, [])
-    const multi_slug = [
-        'a',
-        'a/b',
-        'a/b/c',
-        'a/b/c/d'
-    ]
+    async function get(){
+        const response = await getCountry();
+        setCountries(response)
+    }
+    useEffect(()=>{
+        get()
+    },[])
     return (
         <React.Fragment>
             <h1>You selected: {params.type}</h1>
@@ -47,15 +50,19 @@ export default function Types({ params }) {
             <button onClick={()=>show(my_modal)}>
                 say hello!!
             </button>
+            <hr />
             <br />
-            {multi_slug.map((v,i)=>{
+
+            {countries.map((v,i)=>{
                 return(
-                    <React.Fragment key={i}>
-                    <Link href={`services/${params.type}/${v}`} >{v}</Link><br />
-                    </React.Fragment>
+                    <div key={i}>
+                        <Link href={`/modules/${params.type}/${v.name.common}`}>{v.name.official}</Link>
+
+
+                    </div>
                 )
             })}
-            <RandomModal id={my_modal}/>
+            <RandomModal id={my_modal} data="Ajay"/>
 
         </React.Fragment>
     )

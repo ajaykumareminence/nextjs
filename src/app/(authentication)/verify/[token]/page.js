@@ -1,10 +1,14 @@
+"use client"
 import React from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function Verify({params}){
+    const router = useRouter()
+    setTimeout(()=>{
+        router.push('/modules')
+    },2500)
     return(
         <React.Fragment>
-            <h1>VerifyToken: {params.token}</h1>
-            <Link href="/modules">view services</Link>
+            <h1>Verifying token: {params.token}, Please wait !!!!</h1>
         </React.Fragment>
     )
 }

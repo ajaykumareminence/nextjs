@@ -1,12 +1,12 @@
-export default function RandomModal({id}){
+export default function RandomModal({id, data}){
     function hide(id){
         let element = document.getElementById(id);
         element.close()
     }
     return(
         <dialog id={id}>
-            <button onClick={()=>hide(id)}>hideme</button>
-            Hello i am a modal
+            <button onClick={()=>hide(id)}>hideme</button><br />
+            Hello i am {data}
         </dialog>
     )
 }
