@@ -5,7 +5,7 @@ export default function Login(){
     const router = useRouter()
     return(
         <React.Fragment>
-            <h1>Login</h1>
+            <h1>Login Mee!!!</h1>
             <button onClick={()=>router.push('/verify/sometoken')}>go to verify token</button>
         </React.Fragment>
     )
